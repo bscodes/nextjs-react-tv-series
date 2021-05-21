@@ -38,7 +38,7 @@ export default function MoviePage({ data }) {
                   />
                   <div className={styles.InfoWrapper}>
                     <h5>Show Info</h5>
-                    {data?.network.name !== null && (
+                    {data?.network !== null && (
                       <p>
                         <span className={styles.InfoWrapperTitles}>
                           Network:
