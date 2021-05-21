@@ -4,12 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Suggestions from '../components/suggestions';
 import { useEffect, useState } from 'react';
 import MovieList from '../components/movie-list';
+import MoonLoader from 'react-spinners/ClipLoader';
 
 export default function Home() {
   const [movieSuggestions, setMovieSuggestions] = useState([]);
   const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
   const [movieList, setMovieList] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     search();
@@ -17,6 +19,14 @@ export default function Home() {
       setMovieSuggestions([]); // this cleanup function works after clear the input field
     };
   }, [searchQuery]);
+
+  useEffect(() => {
+    if (searchQuery === '') {
+      getData('pokemon');
+      setMovieList(movieSuggestions);
+      setIsSuggestionsOpen(false);
+    }
+  }, [movieSuggestions, searchQuery]);
 
   const getData = async (searchQuery) => {
     await fetch(`http://api.tvmaze.com/search/shows?q=${searchQuery}`)
@@ -41,26 +51,34 @@ export default function Home() {
   };
 
   return (
-    <div className="container">
-      <SearchInput
-        handleSubmit={handleSubmit}
-        value={searchQuery}
-        onChange={(e) => {
-          setSearchQuery(e.target.value);
-          setIsSuggestionsOpen(true);
-        }}
-      />
-
-      {movieSuggestions.length > 0 && isSuggestionsOpen && (
-        <Suggestions suggestions={movieSuggestions} />
+    <>
+      {loading && (
+        <div className={styles.Loading}>
+          <MoonLoader color={'#000000'} loading={loading} size={250} />
+        </div>
       )}
+      <div className="container">
+        <SearchInput
+          handleSubmit={handleSubmit}
+          value={searchQuery}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+            setIsSuggestionsOpen(true);
+          }}
+        />
 
-      <MovieList
-        movies={movieList}
-        isSuggestionsOpened={
-          movieSuggestions.length > 0 && isSuggestionsOpen ? true : false
-        }
-      />
-    </div>
+        {movieSuggestions.length > 0 && isSuggestionsOpen && (
+          <Suggestions suggestions={movieSuggestions} />
+        )}
+
+        <MovieList
+          movies={movieList}
+          setSpinner={() => setLoading(true)}
+          isSuggestionsOpened={
+            movieSuggestions.length > 0 && isSuggestionsOpen ? true : false
+          }
+        />
+      </div>
+    </>
   );
 }
