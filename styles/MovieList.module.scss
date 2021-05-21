@@ -1,0 +1,19 @@
+.MovieListWrapper {
+  display: flex;
+  flex-direction: row;
+  z-index: -1;
+  .Link {
+    color: #000;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  &.MovieListWrapperActive {
+    position: relative;
+    bottom: 160px;
+  }
+
+  &.MovieListWrapperDeactive {
+    margin-top: 40px;
+  }
+}
