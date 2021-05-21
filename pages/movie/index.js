@@ -2,8 +2,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import styles from '../../styles/MoviePage.module.scss';
 export default function MoviePage({ data }) {
-  console.log('data', data);
-
   return (
     <>
       <div className={styles.MoviePage}>
