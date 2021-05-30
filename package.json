@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --port 18000",
     "build": "next build",
-    "start": "next start",
+    "start": "next start"
   },
   "dependencies": {
     "@netlify/plugin-nextjs": "^3.3.1",
