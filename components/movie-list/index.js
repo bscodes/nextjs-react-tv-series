@@ -1,6 +1,7 @@
 import styles from '../../styles/MovieList.module.scss';
 import Link from 'next/link';
 import MovieCard from '../movie';
+
 export default function MovieList(props) {
   return (
     <>
@@ -16,7 +17,7 @@ export default function MovieList(props) {
         <div className="container">
           <div className="row">
             {props.movies.map((item) => (
-              <div className="col-lg-3" key={item.show.id}>
+              <div className="col-lg-3 col-md-6" key={item.show.id}>
                 <Link
                   href={{
                     pathname: '/movie',

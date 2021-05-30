@@ -1,4 +1,5 @@
 import styles from '../../styles/MovieCard.module.scss';
+
 export default function MovieCard(props) {
   return (
     <>

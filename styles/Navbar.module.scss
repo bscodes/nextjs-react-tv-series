@@ -1,0 +1,32 @@
+.Navbar {
+  display: flex;
+  color: #fff;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  position: fixed;
+  top: 0;
+  z-index: 3;
+  width: 100%;
+  background: #181818;
+
+  .Back {
+    color: #fff;
+    position: absolute;
+    padding-left: 0.5rem;
+
+    .Link {
+      color: #fff;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    svg {
+      font-size: 1.5rem;
+    }
+  }
+
+  h4 {
+    font-weight: 700;
+  }
+}

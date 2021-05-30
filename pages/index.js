@@ -4,35 +4,45 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Suggestions from '../components/suggestions';
 import { useEffect, useState } from 'react';
 import MovieList from '../components/movie-list';
-import MoonLoader from 'react-spinners/ClipLoader';
+import LoadingIcons from 'react-loading-icons';
+import { useAppContext } from '../context/state';
+import RandomMovie from '../components/random-movie';
 
-export default function Home() {
+export default function Home({ randomMovieData, randomMovieImages }) {
   const [movieSuggestions, setMovieSuggestions] = useState([]);
   const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
   const [movieList, setMovieList] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [loading, setLoading] = useState(false);
+  //const [searchQuery, setSearchQuery] = useState('');
+  //const [loading, setLoading] = useState(true);
+  const { searchQuery, loading, loadingHandler, searchQueryHandler } =
+    useAppContext();
+
+  const background =
+    randomMovieImages.name !== 'Not Found' &&
+    randomMovieImages?.filter((i) => i.type === 'background')[0];
 
   useEffect(() => {
     search();
+    if (searchQuery === '') {
+      setIsSuggestionsOpen(false);
+    }
     return () => {
       setMovieSuggestions([]); // this cleanup function works after clear the input field
     };
   }, [searchQuery]);
 
   useEffect(() => {
-    if (searchQuery === '') {
-      getData('pokemon');
-      setMovieList(movieSuggestions);
-      setIsSuggestionsOpen(false);
+    if (loading) {
+      loadingHandler(); // closes loadingBar on page load
     }
-  }, [movieSuggestions, searchQuery]);
+  }, []);
 
   const getData = async (searchQuery) => {
     await fetch(`http://api.tvmaze.com/search/shows?q=${searchQuery}`)
       .then((response) => response.json())
       .then((data) => {
         setMovieSuggestions(data);
+        setMovieList(data);
       });
   };
 
@@ -43,8 +53,10 @@ export default function Home() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     search();
     setMovieList(movieSuggestions);
     setIsSuggestionsOpen(false);
@@ -53,16 +65,17 @@ export default function Home() {
   return (
     <>
       {loading && (
-        <div className={styles.Loading}>
-          <MoonLoader color={'#000000'} loading={loading} size={250} />
+        <div className="Loading">
+          <LoadingIcons.Bars fill="#000" />
         </div>
       )}
+
       <div className="container">
         <SearchInput
           handleSubmit={handleSubmit}
           value={searchQuery}
           onChange={(e) => {
-            setSearchQuery(e.target.value);
+            searchQueryHandler(e.target.value);
             setIsSuggestionsOpen(true);
           }}
         />
@@ -71,9 +84,17 @@ export default function Home() {
           <Suggestions suggestions={movieSuggestions} />
         )}
 
+        {movieList.length === 0 && randomMovieData.name !== 'Not Found' && (
+          <RandomMovie
+            onClick={loadingHandler}
+            imageData={background}
+            movieData={randomMovieData}
+          />
+        )}
+
         <MovieList
           movies={movieList}
-          setSpinner={() => setLoading(true)}
+          setSpinner={loadingHandler}
           isSuggestionsOpened={
             movieSuggestions.length > 0 && isSuggestionsOpen ? true : false
           }
@@ -82,3 +103,31 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps = async () => {
+  function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  const randomNumber = getRandomNumber(1, 750);
+
+  try {
+    const getRandomMovie = await fetch(
+      `http://api.tvmaze.com/shows/${randomNumber}`
+    );
+    const getRandomImages = await fetch(
+      `http://api.tvmaze.com/shows/${randomNumber}/images`
+    );
+    const randomMovieData = await getRandomMovie.json();
+    const randomMovieImages = await getRandomImages.json();
+
+    return {
+      props: {
+        randomMovieData: randomMovieData,
+        randomMovieImages: randomMovieImages,
+      },
+    };
+  } catch (error) {
+    return { props: { randomMovieData: null, randomMovieImages: null } };
+  }
+};

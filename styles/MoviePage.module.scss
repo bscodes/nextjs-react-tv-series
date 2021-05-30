@@ -1,16 +1,154 @@
 .MoviePage {
-  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  background: #181818;
+  padding-bottom: 3rem;
 
-  .TitleWrapper {
-    border: 3px solid #000;
-    -webkit-box-shadow: 5px 5px 0px 0px #000000;
-    box-shadow: 5px 5px 0px 0px #000000;
+  .HeroSection {
+    background: #181818;
+    max-width: 1600px;
+    position: relative;
+    overflow: hidden;
+    padding-top: 60px;
 
-    h3 {
-      margin: 10px;
+    @media only screen and (max-width: 599px) {
+      padding: 4rem 5vw 20px;
+    }
+
+    .HeroContainer {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      margin: 0 auto;
+
+      @media only screen and (max-width: 599px) {
+        flex-direction: column-reverse;
+      }
+
+      .InfoContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 35%;
+        min-width: 500px;
+        max-width: 800px;
+        padding: 16px 32px 16px 0;
+        z-index: 2;
+        position: relative;
+
+        @media only screen and (max-width: 599px) {
+          padding: 15px 0 0 0;
+          width: inherit;
+          min-width: auto;
+          margin-top: -7px;
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: -200px;
+          left: 0;
+          z-index: -1;
+          background: linear-gradient(
+            to right,
+            #181818 10%,
+            rgba(23, 23, 23, 0.98) 20%,
+            rgba(23, 23, 23, 0.97) 25%,
+            rgba(23, 23, 23, 0.95) 35%,
+            rgba(23, 23, 23, 0.94) 40%,
+            rgba(23, 23, 23, 0.92) 45%,
+            rgba(23, 23, 23, 0.9) 50%,
+            rgba(23, 23, 23, 0.87) 55%,
+            rgba(23, 23, 23, 0.82) 60%,
+            rgba(23, 23, 23, 0.75) 65%,
+            rgba(23, 23, 23, 0.63) 70%,
+            rgba(23, 23, 23, 0.45) 75%,
+            rgba(23, 23, 23, 0.27) 80%,
+            rgba(23, 23, 23, 0.15) 85%,
+            rgba(23, 23, 23, 0.08) 90%,
+            rgba(23, 23, 23, 0.03) 95%,
+            rgba(23, 23, 23, 0) 100%
+          );
+        }
+
+        h3 {
+          margin: 3rem;
+          font-size: 4vw;
+          font-weight: 800;
+          color: #fff;
+
+          @media only screen and (max-width: 599px) {
+            margin: 1rem 0;
+            font-size: 5vh;
+          }
+        }
+      }
+
+      .HeroImageContainer {
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: row;
+        z-index: 1;
+        height: 0;
+        padding-bottom: 55%;
+
+        @media only screen and (max-width: 599px) {
+          position: relative;
+          margin: 0;
+          padding-bottom: 100%;
+        }
+
+        .HeroImage {
+          display: block !important;
+          position: absolute;
+          right: -6%;
+          width: 103%;
+          height: 100%;
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center;
+
+          &::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            background: linear-gradient(
+              to top,
+              #181818 0,
+              rgba(23, 23, 23, 0.987) 1.62%,
+              rgba(23, 23, 23, 0.951) 3.1%,
+              rgba(23, 23, 23, 0.896) 4.5%,
+              rgba(23, 23, 23, 0.825) 5.8%,
+              rgba(23, 23, 23, 0.741) 7.06%,
+              rgba(23, 23, 23, 0.648) 8.24%,
+              rgba(23, 23, 23, 0.55) 9.42%,
+              rgba(23, 23, 23, 0.45) 10.58%,
+              rgba(23, 23, 23, 0.352) 11.76%,
+              rgba(23, 23, 23, 0.259) 12.94%,
+              rgba(23, 23, 23, 0.175) 14.2%,
+              rgba(23, 23, 23, 0.104) 15.5%,
+              rgba(23, 23, 23, 0.049) 16.9%,
+              rgba(23, 23, 23, 0.013) 18.38%,
+              rgba(23, 23, 23, 0) 20%
+            );
+          }
+          @media only screen and (max-width: 599px) {
+            height: 100%;
+            width: 112%;
+            left: -5vw;
+          }
+        }
+      }
     }
   }
-
+  /* info section */
   .ImageWrapper {
     border: 3px solid #000;
     -webkit-box-shadow: 5px 5px 0px 0px #000000;
@@ -23,10 +161,12 @@
 
   .Summary {
     margin-top: 10px;
+    color: #fff;
   }
 
   .InfoWrapper {
     text-align: left;
+    color: #fff;
 
     p {
       margin: 0;
@@ -34,6 +174,7 @@
 
       .InfoWrapperTitles {
         font-weight: bold;
+        color: #a3a3a3;
       }
     }
   }
