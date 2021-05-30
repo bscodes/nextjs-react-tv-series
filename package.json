@@ -6,7 +6,6 @@
     "dev": "next dev --port 18000",
     "build": "next build",
     "start": "next start",
-    "postbuild": "next-on-netlify"
   },
   "dependencies": {
     "@netlify/plugin-nextjs": "^3.3.1",
