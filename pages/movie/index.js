@@ -134,9 +134,9 @@ export const getServerSideProps = async ({ query }) => {
   const id = query.filmId;
 
   try {
-    const getMovieData = await fetch(`http://api.tvmaze.com/shows/${id}`);
+    const getMovieData = await fetch(`https://api.tvmaze.com/shows/${id}`);
     const getMovieImages = await fetch(
-      `http://api.tvmaze.com/shows/${id}/images`
+      `https://api.tvmaze.com/shows/${id}/images`
     );
     const movieData = await getMovieData.json();
     const movieImages = await getMovieImages.json();

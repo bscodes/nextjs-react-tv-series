@@ -38,7 +38,7 @@ export default function Home({ randomMovieData, randomMovieImages }) {
   }, []);
 
   const getData = async (searchQuery) => {
-    await fetch(`http://api.tvmaze.com/search/shows?q=${searchQuery}`)
+    await fetch(`https://api.tvmaze.com/search/shows?q=${searchQuery}`)
       .then((response) => response.json())
       .then((data) => {
         setMovieSuggestions(data);
@@ -113,10 +113,10 @@ export const getServerSideProps = async () => {
 
   try {
     const getRandomMovie = await fetch(
-      `http://api.tvmaze.com/shows/${randomNumber}`
+      `https://api.tvmaze.com/shows/${randomNumber}`
     );
     const getRandomImages = await fetch(
-      `http://api.tvmaze.com/shows/${randomNumber}/images`
+      `https://api.tvmaze.com/shows/${randomNumber}/images`
     );
     const randomMovieData = await getRandomMovie.json();
     const randomMovieImages = await getRandomImages.json();
