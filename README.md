@@ -1,6 +1,8 @@
 # Search TV Series
 
-📺 TV Series information website built with React and Next.js, Search tv series and get basic information. [SEE DEMO](https://searchtvseries.netlify.app/)
+📺 TV Series information website built with React and Next.js, Search tv series and get basic information. 
+
+[SEE DEMO](https://searchtvseries.netlify.app/)
 
 ![](preview/t1.png)
 ![](preview/t2.png)
