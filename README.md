@@ -4,6 +4,15 @@
 
 ![](preview/t1.png)
 ![](preview/t2.png)
+
+## Tech/Framework Used
+
+* Next.js
+* React
+* React Hooks
+* Context API
+* SASS
+* TVMaze API
 ## Getting Started
 
 First, run the development server:
