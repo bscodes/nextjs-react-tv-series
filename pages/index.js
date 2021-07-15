@@ -10,20 +10,16 @@ import RandomMovie from '../components/random-movie';
 
 export default function Home({ randomMovieData, randomMovieImages }) {
   const [movieSuggestions, setMovieSuggestions] = useState([]);
-  const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
   const [movieList, setMovieList] = useState([]);
   const { searchQuery, loading, loadingHandler, searchQueryHandler } =
     useAppContext();
 
   const background =
-    randomMovieImages.name !== 'Not Found' &&
-    randomMovieImages?.filter((i) => i.type === 'background')[0];
+    randomMovieImages?.name !== 'Not Found' &&
+    randomMovieImages?.filter((i) => i?.type === 'background')[0];
 
   useEffect(() => {
     search();
-    if (searchQuery === '') {
-      setIsSuggestionsOpen(false);
-    }
     return () => {
       setMovieSuggestions([]); // this cleanup function works after clear the input field
     };
@@ -45,7 +41,7 @@ export default function Home({ randomMovieData, randomMovieImages }) {
   };
 
   const search = () => {
-    if (searchQuery.length > 2) {
+    if (searchQuery?.length > 2) {
       getData(searchQuery);
     }
   };
@@ -57,7 +53,6 @@ export default function Home({ randomMovieData, randomMovieImages }) {
     }
     search();
     setMovieList(movieSuggestions);
-    setIsSuggestionsOpen(false);
   };
 
   return (
@@ -73,16 +68,11 @@ export default function Home({ randomMovieData, randomMovieImages }) {
           handleSubmit={handleSubmit}
           value={searchQuery}
           onChange={(e) => {
-            searchQueryHandler(e.target.value);
-            setIsSuggestionsOpen(true);
+            searchQueryHandler(e?.target?.value);
           }}
         />
 
-        {movieSuggestions.length > 0 && isSuggestionsOpen && (
-          <Suggestions suggestions={movieSuggestions} />
-        )}
-
-        {movieList.length === 0 && randomMovieData.name !== 'Not Found' && (
+        {movieList?.length === 0 && randomMovieData?.name !== 'Not Found' && (
           <RandomMovie
             onClick={loadingHandler}
             imageData={background}
@@ -90,13 +80,7 @@ export default function Home({ randomMovieData, randomMovieImages }) {
           />
         )}
 
-        <MovieList
-          movies={movieList}
-          setSpinner={loadingHandler}
-          isSuggestionsOpened={
-            movieSuggestions.length > 0 && isSuggestionsOpen ? true : false
-          }
-        />
+        <MovieList movies={movieList} setSpinner={loadingHandler} />
       </div>
     </>
   );
