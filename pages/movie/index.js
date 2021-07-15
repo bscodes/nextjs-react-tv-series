@@ -47,7 +47,7 @@ export default function MoviePage({ data, images }) {
     <>
       {loading && (
         <div className="Loading">
-          <LoadingIcons.Bars fill="#000" />
+          <LoadingIcons.Bars />
         </div>
       )}
       <div className={styles.MoviePage}>

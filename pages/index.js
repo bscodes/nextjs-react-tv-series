@@ -12,8 +12,6 @@ export default function Home({ randomMovieData, randomMovieImages }) {
   const [movieSuggestions, setMovieSuggestions] = useState([]);
   const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
   const [movieList, setMovieList] = useState([]);
-  //const [searchQuery, setSearchQuery] = useState('');
-  //const [loading, setLoading] = useState(true);
   const { searchQuery, loading, loadingHandler, searchQueryHandler } =
     useAppContext();
 
@@ -66,7 +64,7 @@ export default function Home({ randomMovieData, randomMovieImages }) {
     <>
       {loading && (
         <div className="Loading">
-          <LoadingIcons.Bars fill="#000" />
+          <LoadingIcons.Bars />
         </div>
       )}
 
