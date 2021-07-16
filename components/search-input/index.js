@@ -10,7 +10,7 @@ export default function SearchInput(props) {
             <div className="d-flex flex-row">
               <Form.Control
                 placeholder="Search any TV Series..."
-                value={props.searchQuery}
+                value={props.value}
                 onChange={props.onChange}
               />
               <Button className="ml-2" variant="" type="submit">

@@ -1,7 +1,5 @@
 import SearchInput from '../components/search-input';
 import styles from '../styles/Home.module.scss';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Suggestions from '../components/suggestions';
 import { useEffect, useState } from 'react';
 import MovieList from '../components/movie-list';
 import LoadingIcons from 'react-loading-icons';
