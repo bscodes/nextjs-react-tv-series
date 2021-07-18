@@ -1,7 +1,11 @@
 .MovieListWrapper {
   display: flex;
   flex-direction: row;
-  margin-top: 40px;
+  margin-top: 140px;
+
+  @media only screen and (max-width: 599px) {
+    margin-top: 100px;
+  }
   .Link {
     color: #000;
     &:hover {

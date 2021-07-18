@@ -14,14 +14,9 @@ export default function Home({ randomMovieData, randomMovieImages }) {
 
   const background =
     randomMovieImages?.name !== 'Not Found' &&
-    randomMovieImages?.filter((i) => i?.type === 'background')[0];
-
-  useEffect(() => {
-    search();
-    return () => {
-      setMovieSuggestions([]); // this cleanup function works after clear the input field
-    };
-  }, [searchQuery]);
+    randomMovieImages?.filter(
+      (i) => i?.type === 'background' ?? i?.type === 'poster'
+    )[0];
 
   useEffect(() => {
     if (loading) {
@@ -61,7 +56,7 @@ export default function Home({ randomMovieData, randomMovieImages }) {
         </div>
       )}
 
-      <div className="container">
+      <div className={`container ${styles.SearchWrapper}`}>
         <SearchInput
           handleSubmit={handleSubmit}
           value={searchQuery}
@@ -69,17 +64,17 @@ export default function Home({ randomMovieData, randomMovieImages }) {
             searchQueryHandler(e?.target?.value);
           }}
         />
-
-        {movieList?.length === 0 && randomMovieData?.name !== 'Not Found' && (
-          <RandomMovie
-            onClick={loadingHandler}
-            imageData={background}
-            movieData={randomMovieData}
-          />
-        )}
-
-        <MovieList movies={movieList} setSpinner={loadingHandler} />
       </div>
+      {movieList?.length > 0 && (
+        <MovieList movies={movieList} setSpinner={loadingHandler} />
+      )}
+      {!movieList?.length && randomMovieData?.name !== 'Not Found' && (
+        <RandomMovie
+          onClick={loadingHandler}
+          imageData={background}
+          movieData={randomMovieData}
+        />
+      )}
     </>
   );
 }
