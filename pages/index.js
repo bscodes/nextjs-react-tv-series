@@ -1,7 +1,5 @@
 import SearchInput from '../components/search-input';
 import styles from '../styles/Home.module.scss';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Suggestions from '../components/suggestions';
 import { useEffect, useState } from 'react';
 import MovieList from '../components/movie-list';
 import LoadingIcons from 'react-loading-icons';
@@ -10,24 +8,15 @@ import RandomMovie from '../components/random-movie';
 
 export default function Home({ randomMovieData, randomMovieImages }) {
   const [movieSuggestions, setMovieSuggestions] = useState([]);
-  const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
   const [movieList, setMovieList] = useState([]);
   const { searchQuery, loading, loadingHandler, searchQueryHandler } =
     useAppContext();
 
   const background =
-    randomMovieImages.name !== 'Not Found' &&
-    randomMovieImages?.filter((i) => i.type === 'background')[0];
-
-  useEffect(() => {
-    search();
-    if (searchQuery === '') {
-      setIsSuggestionsOpen(false);
-    }
-    return () => {
-      setMovieSuggestions([]); // this cleanup function works after clear the input field
-    };
-  }, [searchQuery]);
+    randomMovieImages?.name !== 'Not Found' &&
+    randomMovieImages?.filter(
+      (i) => i?.type === 'background' ?? i?.type === 'poster'
+    )[0];
 
   useEffect(() => {
     if (loading) {
@@ -45,7 +34,7 @@ export default function Home({ randomMovieData, randomMovieImages }) {
   };
 
   const search = () => {
-    if (searchQuery.length > 2) {
+    if (searchQuery?.length > 2) {
       getData(searchQuery);
     }
   };
@@ -57,7 +46,6 @@ export default function Home({ randomMovieData, randomMovieImages }) {
     }
     search();
     setMovieList(movieSuggestions);
-    setIsSuggestionsOpen(false);
   };
 
   return (
@@ -68,36 +56,25 @@ export default function Home({ randomMovieData, randomMovieImages }) {
         </div>
       )}
 
-      <div className="container">
+      <div className={`container ${styles.SearchWrapper}`}>
         <SearchInput
           handleSubmit={handleSubmit}
           value={searchQuery}
           onChange={(e) => {
-            searchQueryHandler(e.target.value);
-            setIsSuggestionsOpen(true);
+            searchQueryHandler(e?.target?.value);
           }}
         />
-
-        {movieSuggestions.length > 0 && isSuggestionsOpen && (
-          <Suggestions suggestions={movieSuggestions} />
-        )}
-
-        {movieList.length === 0 && randomMovieData.name !== 'Not Found' && (
-          <RandomMovie
-            onClick={loadingHandler}
-            imageData={background}
-            movieData={randomMovieData}
-          />
-        )}
-
-        <MovieList
-          movies={movieList}
-          setSpinner={loadingHandler}
-          isSuggestionsOpened={
-            movieSuggestions.length > 0 && isSuggestionsOpen ? true : false
-          }
-        />
       </div>
+      {movieList?.length > 0 && (
+        <MovieList movies={movieList} setSpinner={loadingHandler} />
+      )}
+      {!movieList?.length && randomMovieData?.name !== 'Not Found' && (
+        <RandomMovie
+          onClick={loadingHandler}
+          imageData={background}
+          movieData={randomMovieData}
+        />
+      )}
     </>
   );
 }

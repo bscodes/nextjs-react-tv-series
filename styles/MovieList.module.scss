@@ -1,19 +1,15 @@
 .MovieListWrapper {
   display: flex;
   flex-direction: row;
-  z-index: -1;
+  margin-top: 140px;
+
+  @media only screen and (max-width: 599px) {
+    margin-top: 100px;
+  }
   .Link {
     color: #000;
     &:hover {
       text-decoration: none;
     }
-  }
-  &.MovieListWrapperActive {
-    position: relative;
-    bottom: 160px;
-  }
-
-  &.MovieListWrapperDeactive {
-    margin-top: 40px;
   }
 }

@@ -1,4 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
 import LoadingIcons from 'react-loading-icons';
 import Navbar from '../../components/navbar';
@@ -72,12 +71,12 @@ export default function MoviePage({ data, images }) {
                     dangerouslySetInnerHTML={{
                       __html: `
                     <i>
-                    ${data?.summary} 
+                    ${data?.summary || ''} 
                     </i>`,
                     }}
                   />
                   <div className={styles.InfoWrapper}>
-                    {data?.network !== null && (
+                    {data?.network && (
                       <p>
                         <span className={styles.InfoWrapperTitles}>
                           Network:
@@ -86,7 +85,7 @@ export default function MoviePage({ data, images }) {
                       </p>
                     )}
 
-                    {data?.webChannel !== null && (
+                    {data?.webChannel && (
                       <p>
                         <span className={styles.InfoWrapperTitles}>
                           Web Channel:
@@ -95,7 +94,7 @@ export default function MoviePage({ data, images }) {
                       </p>
                     )}
 
-                    {data?.rating.average !== null && (
+                    {data?.rating?.average && (
                       <p>
                         <span className={styles.InfoWrapperTitles}>
                           {' '}
@@ -107,8 +106,8 @@ export default function MoviePage({ data, images }) {
 
                     <p>
                       <span className={styles.InfoWrapperTitles}> Genres:</span>{' '}
-                      {data?.genres.map((genre) => (
-                        <span key={Helpers.generateKey(genre)}> {genre}, </span>
+                      {data?.genres?.map((genre) => (
+                        <span key={Helpers.generateKey(genre)}>{genre} </span>
                       ))}
                     </p>
 

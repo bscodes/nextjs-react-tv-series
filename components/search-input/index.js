@@ -7,16 +7,11 @@ export default function SearchInput(props) {
       <Form onSubmit={props.handleSubmit} className={styles.SearchInput}>
         <Form.Row>
           <Col md={12}>
-            <div className="d-flex flex-row">
-              <Form.Control
-                placeholder="Search any TV Series..."
-                value={props.searchQuery}
-                onChange={props.onChange}
-              />
-              <Button className="ml-2" variant="" type="submit">
-                Search
-              </Button>
-            </div>
+            <Form.Control
+              placeholder="Search any TV Series..."
+              value={props.value}
+              onChange={props.onChange}
+            />
           </Col>
         </Form.Row>
       </Form>

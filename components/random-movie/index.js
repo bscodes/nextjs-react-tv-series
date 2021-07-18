@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Button } from 'react-bootstrap';
+import { BsInfoCircleFill } from 'react-icons/bs';
 import styles from '../../styles/RandomMovie.module.scss';
 
 export default function RandomMovie(props) {
@@ -17,7 +18,10 @@ export default function RandomMovie(props) {
                 }}
               >
                 <a className={styles.Link} onClick={props.onClick}>
-                  <Button variant=""> Info</Button>
+                  <Button variant="">
+                    {' '}
+                    <BsInfoCircleFill /> <span className="ml-1">Info</span>
+                  </Button>
                 </a>
               </Link>
             </div>
