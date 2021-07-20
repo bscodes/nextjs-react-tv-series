@@ -5,8 +5,14 @@ import MovieList from '../components/movie-list';
 import LoadingIcons from 'react-loading-icons';
 import { useAppContext } from '../context/state';
 import RandomMovie from '../components/random-movie';
+import { getRandomNumber, getIsoDate } from '../utils/Utils';
+import CarouselView from '../components/carousel';
 
-export default function Home({ randomMovieData, randomMovieImages }) {
+export default function Home({
+  randomMovieData,
+  randomMovieImages,
+  scheduleData,
+}) {
   const [movieSuggestions, setMovieSuggestions] = useState([]);
   const [movieList, setMovieList] = useState([]);
   const { searchQuery, loading, loadingHandler, searchQueryHandler } =
@@ -48,6 +54,8 @@ export default function Home({ randomMovieData, randomMovieImages }) {
     setMovieList(movieSuggestions);
   };
 
+  console.log(scheduleData);
+
   return (
     <>
       {loading && (
@@ -69,22 +77,22 @@ export default function Home({ randomMovieData, randomMovieImages }) {
         <MovieList movies={movieList} setSpinner={loadingHandler} />
       )}
       {!movieList?.length && randomMovieData?.name !== 'Not Found' && (
-        <RandomMovie
-          onClick={loadingHandler}
-          imageData={background}
-          movieData={randomMovieData}
-        />
+        <>
+          <RandomMovie
+            onClick={loadingHandler}
+            imageData={background}
+            movieData={randomMovieData}
+          />
+          <CarouselView data={scheduleData} />
+        </>
       )}
     </>
   );
 }
 
 export const getServerSideProps = async () => {
-  function getRandomNumber(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-  }
-
   const randomNumber = getRandomNumber(1, 750);
+  const date = getIsoDate();
 
   try {
     const getRandomMovie = await fetch(
@@ -93,16 +101,28 @@ export const getServerSideProps = async () => {
     const getRandomImages = await fetch(
       `https://api.tvmaze.com/shows/${randomNumber}/images`
     );
+
+    const getSchedule = await fetch(
+      `https://api.tvmaze.com/schedule?country=US&date=${date}`
+    );
     const randomMovieData = await getRandomMovie.json();
     const randomMovieImages = await getRandomImages.json();
+    const schedule = await getSchedule.json();
 
     return {
       props: {
         randomMovieData: randomMovieData,
         randomMovieImages: randomMovieImages,
+        scheduleData: schedule,
       },
     };
   } catch (error) {
-    return { props: { randomMovieData: null, randomMovieImages: null } };
+    return {
+      props: {
+        randomMovieData: null,
+        randomMovieImages: null,
+        scheduleData: null,
+      },
+    };
   }
 };
