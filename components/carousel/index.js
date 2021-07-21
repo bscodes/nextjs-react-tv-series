@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import styles from '../../styles/CarouselView.module.scss';
@@ -22,8 +23,12 @@ export default function CarouselView(props) {
       items: 1,
     },
   };
+
   return (
     <>
+      <div className={styles.CarouselTitle}>
+        <span className="text-light">Popular shows tonight</span>
+      </div>
       <Carousel
         responsive={responsive}
         swipeable={false}
@@ -33,25 +38,32 @@ export default function CarouselView(props) {
         keyBoardControl={false}
         customTransition="all .5"
         autoPlay={false}
-        containerClass="carousel-container"
-        itemClass="carousel-item-padding-40-px"
+        containerClass={styles.CarouselContainer}
+        itemClass={styles.CarouselItem}
       >
         {props?.data
-          ?.sort((a, b) =>
-            a?.show?.rating?.average > b?.show?.rating?.average
-              ? 1
-              : b?.show?.rating?.average > a?.show?.rating?.average
-              ? -1
-              : 0
-          )
+          ?.sort((a, b) => a?.show?.rating?.average - b?.show?.rating?.average)
           ?.map((item) => (
-            <div key={item?.id}>
-              <img
-                className="d-block w-100"
-                src={item?.show?.image?.medium || '/images/placeholder.jpeg'}
-                alt={item?.show?.name}
-              />
-            </div>
+            <Link
+              key={item?.id}
+              href={{
+                pathname: '/movie',
+                query: { filmId: `${item?.show?.id}` },
+              }}
+              onClick={props.onClick}
+            >
+              <a className={styles.Link}>
+                <div>
+                  <img
+                    className="d-block w-100"
+                    src={
+                      item?.show?.image?.medium || '/images/placeholder.jpeg'
+                    }
+                    alt={item?.show?.name}
+                  />
+                </div>
+              </a>
+            </Link>
           ))}
       </Carousel>
     </>

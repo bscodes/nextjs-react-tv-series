@@ -83,7 +83,7 @@ export default function Home({
             imageData={background}
             movieData={randomMovieData}
           />
-          <CarouselView data={scheduleData} />
+          <CarouselView data={scheduleData} onClick={loadingHandler} />
         </>
       )}
     </>
