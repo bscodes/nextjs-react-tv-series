@@ -25,7 +25,6 @@ export default function MovieList(props) {
                         item?.show.image?.original ||
                         '/images/placeholder.jpeg'
                       }
-                      movieRating={item?.show?.rating?.average}
                     />
                   </a>
                 </Link>

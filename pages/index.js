@@ -54,8 +54,7 @@ export default function Home({
     setMovieList(movieSuggestions);
   };
 
-  console.log(scheduleData);
-
+  console.log({ movieList });
   return (
     <>
       {loading && (

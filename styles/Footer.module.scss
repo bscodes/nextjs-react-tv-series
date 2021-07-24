@@ -1,0 +1,14 @@
+.FooterWrapper {
+  color: #fff;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+
+  .Link {
+    &:hover {
+      color: #ffa500;
+    }
+    .GithubIcon {
+      font-size: 3rem;
+    }
+  }
+}
