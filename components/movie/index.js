@@ -11,14 +11,6 @@ export default function MovieCard(props) {
           <div className={styles.movieTitleWrapper}>
             <h5 className={styles.movieTitle}>{props.movieTitle}</h5>
           </div>
-
-          <hr className={styles.Line} />
-
-          <div className={styles.movieRatingWrapper}>
-            <span>
-              Rating: {props.movieRating !== null ? props.movieRating : 'n/a'}
-            </span>
-          </div>
         </div>
       </div>
     </>

@@ -6,7 +6,6 @@ import styles from '../../styles/CarouselView.module.scss';
 export default function CarouselView(props) {
   const responsive = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
       items: 8,
     },
@@ -25,7 +24,7 @@ export default function CarouselView(props) {
   };
 
   return (
-    <>
+    <div className={styles.CarouselWrapper}>
       <div className={styles.CarouselTitle}>
         <span className="text-light">Popular shows tonight</span>
       </div>
@@ -66,6 +65,6 @@ export default function CarouselView(props) {
             </Link>
           ))}
       </Carousel>
-    </>
+    </div>
   );
 }
