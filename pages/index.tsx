@@ -26,12 +26,12 @@ export default function Home({
 
   useEffect(() => {
     if (loading) {
-      loadingHandler(); // closes loadingBar on page load
+      loadingHandler();
     }
   }, []);
 
-  const getData = async (searchQuery) => {
-    await fetch(`https://api.tvmaze.com/search/shows?q=${searchQuery}`)
+  const getData = async (query) => {
+    await fetch(`https://api.tvmaze.com/search/shows?q=${query}`)
       .then((response) => response.json())
       .then((data) => {
         setMovieSuggestions(data);
@@ -53,7 +53,6 @@ export default function Home({
     search();
     setMovieList(movieSuggestions);
   };
-
 
   return (
     <>

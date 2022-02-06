@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 
-const AppContext = createContext();
+const AppContext = createContext(undefined);
 
 export function AppWrapper({ children }) {
   const [searchQuery, setSearchQuery] = useState('');

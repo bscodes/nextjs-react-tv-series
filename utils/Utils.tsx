@@ -15,10 +15,7 @@ const getIsoDate = () => {
   function addZero(n) {
     return n < 10 ? '0' + n : '' + n;
   }
-
-  const newDate = year + '-' + addZero(month) + '-' + addZero(day);
-
-  return newDate;
+  return year + '-' + addZero(month) + '-' + addZero(day);
 };
 
 function getRandomNumber(min, max) {

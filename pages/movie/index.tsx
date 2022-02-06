@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import LoadingIcons from 'react-loading-icons';
 import Navbar from '../../components/navbar';
 import styles from '../../styles/MoviePage.module.scss';
